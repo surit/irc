@@ -1,8 +1,8 @@
 package irc
 
-import(
+import (
 	"testing"
-) 
+)
 
 //import "fmt"
 
@@ -40,7 +40,7 @@ func Test_CheckPort(t *testing.T) {
 func Test_Join(t *testing.T) {
 	irc := NewIrcClient()
 	irc.Nick = "weber222222"
-	irc.Host = "irc.freenode.net"
+	irc.Host = "chat.freenode.net"
 	irc.Port = 6667
 	irc.CallBack = handle
 	irc.Channel = "#testGoLa"

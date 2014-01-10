@@ -2,6 +2,7 @@ package irc
 
 import (
 	"bufio"
+	"crypto/tls"
 	"errors"
 	"log"
 	"net"
@@ -26,6 +27,9 @@ type IRCClient struct {
 	Connection net.Conn
 	CallBack   func(*IRCClient, string)
 	Channel    string
+	Ssl        bool
+	SslCert    string
+	SslKey     string
 }
 
 func NewIrcClient() *IRCClient {
@@ -64,7 +68,23 @@ func (i *IRCClient) SendMessage(message string) {
 }
 
 func (i *IRCClient) Join() {
-	conn, _ := net.Dial("tcp", i.Host+":"+strconv.Itoa(i.Port))
+	var config tls.Config
+	var conn net.Conn
+
+	if i.Ssl == true {
+
+		if i.SslCert == "" {
+			config = tls.Config{InsecureSkipVerify: true}
+		} else {
+			cert, _ := tls.LoadX509KeyPair(i.SslCert, i.SslKey)
+			config = tls.Config{Certificates: []tls.Certificate{cert}}
+		}
+
+		conn, _ = tls.Dial("tcp", i.Host+":"+strconv.Itoa(i.Port), &config)
+	} else {
+		conn, _ = net.Dial("tcp", i.Host+":"+strconv.Itoa(i.Port))
+	}
+
 	i.Connection = conn
 
 	if i.Pass != "" {

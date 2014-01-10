@@ -20,6 +20,27 @@ func handle(irc *IRCClient, message string) {
 }
 ```
 
+SSL example:
+
+```go
+irc := NewIrcClient()
+irc.Nick = "nick"
+irc.Host = "irc.freenode.net"
+irc.CallBack = handle
+irc.Channel = "#testGoLangIrc"
+irc.SSL = true
+irc.SslCert = "cert.pem"
+irc.SslKey  = "key.pem"
+irc.Join()
+
+func handle(irc *IRCClient, message string) {
+    //
+    // Simple echo
+    //
+    irc.SendMessage(message)
+}
+```
+
 ### API
 
 [irc at godoc](http://godoc.org/github.com/Bullet-Chat/irc)
@@ -27,10 +48,8 @@ func handle(irc *IRCClient, message string) {
 ### TODO
 
  1. Add error handling
- 2  Add password checking
  3. Think about concurrency
  4. Add real name
- 5. Add ssl
 
 ### Contribution
 
