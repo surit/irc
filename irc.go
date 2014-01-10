@@ -1,13 +1,13 @@
 package irc
 
 import (
+	"bufio"
+	"errors"
 	"log"
 	"net"
 	"net/textproto"
 	"strconv"
 	"strings"
-	"bufio"
-	"errors"
 )
 
 const (
@@ -66,6 +66,10 @@ func (i *IRCClient) SendMessage(message string) {
 func (i *IRCClient) Join() {
 	conn, _ := net.Dial("tcp", i.Host+":"+strconv.Itoa(i.Port))
 	i.Connection = conn
+
+	if i.Pass != "" {
+		i.Connection.Write([]byte("PASS " + i.Pass + " \r\n"))
+	}
 
 	i.Connection.Write([]byte("NICK " + i.Nick + " \r\n"))
 	i.Connection.Write([]byte("USER " + i.Nick + " nohost noserver :golang\r\n"))
