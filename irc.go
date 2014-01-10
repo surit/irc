@@ -26,10 +26,10 @@ type IRCClient struct {
 	Port       int
 	Connection net.Conn
 	CallBack   func(*IRCClient, string)
-	Channel    string
+	Channels   string
 	Ssl        bool
-	SslCert    string
-	SslKey     string
+	SSLCert    string
+	SSLKey     string
 }
 
 func NewIrcClient() *IRCClient {
@@ -70,16 +70,13 @@ func (i *IRCClient) SendMessage(message string) {
 func (i *IRCClient) Join() {
 	var config tls.Config
 	var conn net.Conn
-
 	if i.Ssl == true {
-
-		if i.SslCert == "" {
+		if i.SSLCert == "" {
 			config = tls.Config{InsecureSkipVerify: true}
 		} else {
-			cert, _ := tls.LoadX509KeyPair(i.SslCert, i.SslKey)
+			cert, _ := tls.LoadX509KeyPair(i.SSLCert, i.SSLKey)
 			config = tls.Config{Certificates: []tls.Certificate{cert}}
 		}
-
 		conn, _ = tls.Dial("tcp", i.Host+":"+strconv.Itoa(i.Port), &config)
 	} else {
 		conn, _ = net.Dial("tcp", i.Host+":"+strconv.Itoa(i.Port))

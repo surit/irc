@@ -29,8 +29,8 @@ irc.Host = "irc.freenode.net"
 irc.CallBack = handle
 irc.Channel = "#testGoLangIrc"
 irc.SSL = true
-irc.SslCert = "cert.pem"
-irc.SslKey  = "key.pem"
+irc.SSLCert  = "cert.pem"
+irc.SSLCert  = "key.pem"
 irc.Join()
 
 func handle(irc *IRCClient, message string) {
