@@ -12,14 +12,17 @@ irc.CallBack = handle
 irc.Channel = "#testGoLangIrc"
 irc.Join()
 
-func handle(irc *IrcClient, message string) {
+func handle(irc *IRCClient, message string) {
     //
     // Simple echo
     //
     irc.SendMessage(message)
 }
-
 ```
+
+### API
+
+[irc at godoc](http://godoc.org/github.com/Bullet-Chat/irc)
 
 ### TODO
 
