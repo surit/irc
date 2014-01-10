@@ -10,13 +10,13 @@ irc.Nick = "nick"
 irc.Host = "irc.freenode.net"
 irc.CallBack = handle
 irc.Channel = "#testGoLangIrc"
-irc.Join()
+irc.Join("#WeberMVC", "channel_key")
 
-func handle(irc *IRCClient, message string) {
+func handle(irc *IRCClient, message string, channel string) {
     //
     // Simple echo
     //
-    irc.SendMessage(message)
+    irc.SendMessage(message, channel)
 }
 ```
 
@@ -31,13 +31,13 @@ irc.Channel = "#testGoLangIrc"
 irc.SSL = true
 irc.SSLCert  = "cert.pem"
 irc.SSLCert  = "key.pem"
-irc.Join()
+irc.Join("#WeberMVC", "")
 
-func handle(irc *IRCClient, message string) {
+func handle(irc *IRCClient, message string, channel string) {
     //
     // Simple echo
     //
-    irc.SendMessage(message)
+    irc.SendMessage(message, channel)
 }
 ```
 

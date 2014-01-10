@@ -4,8 +4,6 @@ import (
 	"testing"
 )
 
-//import "fmt"
-
 func Test_NewIrcClient(t *testing.T) {
 	irc := NewIrcClient()
 	irc.Nick = "voidpirate"
@@ -39,14 +37,16 @@ func Test_CheckPort(t *testing.T) {
 
 func Test_Join(t *testing.T) {
 	irc := NewIrcClient()
+	irc.Host = "irc.freenode.net"
 	irc.Nick = "weber222222"
-	irc.Host = "chat.freenode.net"
 	irc.Port = 6667
+	irc.Ssl = false
 	irc.CallBack = handle
-	irc.Channel = "#testGoLa"
-	irc.Join()
+
+	irc.Join("#testGoLa", "")
+	irc.Join("#WeberMVC", "")
 }
 
-func handle(irc *IRCClient, message string) {
-	irc.SendMessage(message)
+func handle(irc *IRCClient, channel string, message string) {
+	irc.SendMessage(message, channel)
 }
