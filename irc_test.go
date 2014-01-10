@@ -1,15 +1,17 @@
 package irc
 
-import "testing"
+import(
+	"testing"
+) 
 
 //import "fmt"
 
 func Test_NewIrcClient(t *testing.T) {
 	irc := NewIrcClient()
-	irc.Nick = "0xAX"
+	irc.Nick = "voidpirate"
 	irc.Pass = ""
 
-	if irc.Nick != "0xAX" {
+	if irc.Nick != "voidpirate" {
 		t.Fatal("[Test_new_ircClient] nick matching failed")
 	}
 
