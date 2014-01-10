@@ -1,14 +1,14 @@
 package irc
 
-import "log"
-
-import "net"
-import "net/textproto"
-
-import "strconv"
-import "strings"
-import "bufio"
-import "errors"
+import (
+	"log"
+	"net"
+	"net/textproto"
+	"strconv"
+	"strings"
+	"bufio"
+	"errors"
+)
 
 const (
 	MaxMessageLength = 510
