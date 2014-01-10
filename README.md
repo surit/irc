@@ -38,4 +38,4 @@ func handle(irc *IrcClient, message string) {
 
 ### Author
 
-[@0xAX](https://twitter.com/0xAX)
+[@0xAX](https://twitter.com/0xAX) and [@_voidPirate](https://twitter.com/_voidPirate)
