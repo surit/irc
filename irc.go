@@ -18,21 +18,21 @@ const (
 	End = "\r\n"
 )
 
-type IrcClient struct {
+type IRCClient struct {
 	Nick       string
 	Pass       string
 	Host       string
 	Port       int
 	Connection net.Conn
-	CallBack   func(*IrcClient, string)
+	CallBack   func(*IRCClient, string)
 	Channel    string
 }
 
-func NewIrcClient() *IrcClient {
-	return &IrcClient{}
+func NewIrcClient() *IRCClient {
+	return &IRCClient{}
 }
 
-func CheckPort(irc *IrcClient) *IrcClient {
+func CheckPort(irc *IRCClient) *IRCClient {
 	if irc.Port == 0 {
 		irc.Port = 6667
 		return irc
@@ -41,7 +41,7 @@ func CheckPort(irc *IrcClient) *IrcClient {
 	}
 }
 
-func CheckHost(irc *IrcClient) (*IrcClient, error) {
+func CheckHost(irc *IRCClient) (*IRCClient, error) {
 	if irc.Host == "" {
 		log.Fatal("[Error] Host can't be empty")
 		return irc, errors.New("[Error] Host can't be empty")
@@ -50,7 +50,7 @@ func CheckHost(irc *IrcClient) (*IrcClient, error) {
 	}
 }
 
-func CheckChannel(irc *IrcClient) (*IrcClient, error) {
+func CheckChannel(irc *IRCClient) (*IRCClient, error) {
 	if irc.Channel == "" {
 		log.Fatal(("[Error] Channel can't be empty"))
 		return irc, errors.New("[Error] Channel can't be empty")
@@ -59,11 +59,11 @@ func CheckChannel(irc *IrcClient) (*IrcClient, error) {
 	}
 }
 
-func (i *IrcClient) SendMessage(message string) {
+func (i *IRCClient) SendMessage(message string) {
 	i.Connection.Write([]byte("PRIVMSG " + i.Channel + " " + message + " " + " \r\n"))
 }
 
-func (i *IrcClient) Join() {
+func (i *IRCClient) Join() {
 	conn, _ := net.Dial("tcp", i.Host+":"+strconv.Itoa(i.Port))
 	i.Connection = conn
 
@@ -74,12 +74,11 @@ func (i *IrcClient) Join() {
 	start_connect(i)
 }
 
-func start_connect(client *IrcClient) {
+func start_connect(client *IRCClient) {
 	reader := bufio.NewReader(client.Connection)
 	tp := textproto.NewReader(reader)
 
 	for {
-
 		line, _ := tp.ReadLine()
 
 		resp := strings.Split(line, " ")

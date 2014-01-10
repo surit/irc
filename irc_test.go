@@ -45,6 +45,6 @@ func Test_Join(t *testing.T) {
 	irc.Join()
 }
 
-func handle(irc *IrcClient, message string) {
+func handle(irc *IRCClient, message string) {
 	irc.SendMessage(message)
 }
