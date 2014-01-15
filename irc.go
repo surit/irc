@@ -21,6 +21,7 @@ const (
 
 type IRCClient struct {
 	Nick       string
+	RealName   string
 	Pass       string
 	Host       string
 	Port       int
@@ -87,8 +88,12 @@ func (i *IRCClient) Join(channel string, channel_key string) {
 			i.Connection.Write([]byte("PASS " + i.Pass + " \r\n"))
 		}
 
+		if i.RealName == "" {
+			i.RealName = i.Nick
+		}
+
 		i.Connection.Write([]byte("NICK " + i.Nick + " \r\n"))
-		i.Connection.Write([]byte("USER " + i.Nick + " nohost noserver :golang\r\n"))
+		i.Connection.Write([]byte("USER " + i.Nick + " nohost noserver :" + i.RealName + "\r\n"))
 
 		if channel_key != "" {
 			i.Connection.Write([]byte("JOIN " + channel + " " + channel_key + " \r\n"))
