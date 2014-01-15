@@ -7,6 +7,7 @@ Robust and flexible IRC library for Go.
 ```go
 irc := NewIrcClient()
 irc.Nick = "nick"
+irc.RealName = "Bob Kelso"
 irc.Host = "irc.freenode.net"
 irc.CallBack = handle
 irc.Channel = "#testGoLangIrc"
@@ -49,7 +50,6 @@ func handle(irc *IRCClient, message string, channel string) {
 
  1. Add error handling
  3. Think about concurrency
- 4. Add real name
 
 ### Contribution
 
